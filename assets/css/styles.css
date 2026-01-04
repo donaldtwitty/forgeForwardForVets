@@ -379,7 +379,6 @@ header h1 {
 }
 
 .form-group label {
-    display: block;
     font-weight: 600;
     color: var(--dark-navy);
     margin-bottom: 0.5rem;
@@ -426,7 +425,7 @@ select:focus {
 
 .checkbox-label {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.75rem;
     font-weight: 500;
     cursor: pointer;
@@ -513,7 +512,183 @@ footer {
     outline-offset: 2px;
 }
 
-/* Responsive Design */
+/* Navigation Dropdown */
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    min-width: 180px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-link {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: var(--dark-navy);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.dropdown-link:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+/* Team Page Styles */
+.team-content {
+    padding: 4rem 0;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.team-member {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-top: 4px solid var(--primary-blue);
+}
+
+.member-photo {
+    margin-bottom: 1.5rem;
+}
+
+.placeholder-photo {
+    width: 120px;
+    height: 120px;
+    background: var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: var(--charcoal);
+    font-weight: 500;
+}
+
+.member-info h3 {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.member-info h4 {
+    color: var(--dark-navy);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.member-info p {
+    color: var(--charcoal);
+    line-height: 1.6;
+}
+.donation-content {
+    padding: 4rem 0;
+}
+
+.donation-impact {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.impact-item {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--primary-blue);
+}
+
+.impact-item h3 {
+    color: var(--primary-blue);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.donation-form-section {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.donation-form {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.amount-selection {
+    margin-bottom: 2rem;
+}
+
+.amount-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.amount-btn {
+    background: var(--light-gray);
+    color: var(--dark-navy);
+    border: 2px solid var(--light-gray);
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto;
+    min-height: 48px;
+}
+
+.amount-btn:hover,
+.amount-btn.selected {
+    background: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+}
+
+.donation-note {
+    text-align: center;
+    color: var(--charcoal);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
 @media (max-width: 768px) {
     .main-nav {
         display: none;

@@ -98,6 +98,26 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Donation amount selection
+    const amountButtons = document.querySelectorAll('.amount-btn');
+    const customAmountInput = document.querySelector('input[name="customAmount"]');
+    
+    amountButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            amountButtons.forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+            if (customAmountInput) {
+                customAmountInput.value = this.dataset.amount;
+            }
+        });
+    });
+    
+    if (customAmountInput) {
+        customAmountInput.addEventListener('input', function() {
+            amountButtons.forEach(b => b.classList.remove('selected'));
+        });
+    }
+
     // Message display function
     function showMessage(text, type) {
         const message = document.createElement('div');
@@ -154,8 +174,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: var(--deep-ocean);
+                background: var(--dark-navy);
                 box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            }
+            
+            .main-nav.mobile-open .nav-link {
+                color: var(--white);
+            }
+            
+            .main-nav.mobile-open .nav-link:hover,
+            .main-nav.mobile-open .nav-link.active {
+                color: var(--white);
             }
         }
     `;
