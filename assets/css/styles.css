@@ -136,23 +136,29 @@ header h1 {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.75rem;
-    min-width: 44px;
-    min-height: 44px;
+    padding: 1rem;
+    min-width: 48px;
+    min-height: 48px;
     justify-content: center;
+    align-items: center;
 }
 
 .mobile-menu-toggle:focus {
-    outline: 3px solid var(--white);
+    outline: none;
+}
+
+.mobile-menu-toggle:focus-visible {
+    outline: 3px solid var(--focus-outline);
     outline-offset: 2px;
 }
 
 .mobile-menu-toggle span {
-    width: 25px;
-    height: 3px;
+    width: 24px;
+    height: 2px;
     background: var(--dark-navy);
-    margin: 3px 0;
+    margin: 2px 0;
     transition: 0.3s;
+    display: block;
 }
 
 /* Hero Section */
@@ -696,6 +702,27 @@ footer {
 
     .mobile-menu-toggle {
         display: flex;
+    }
+    
+    .nav-dropdown .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: rgba(0,0,0,0.2);
+        box-shadow: none;
+        margin-left: 1rem;
+        border-radius: 0;
+    }
+    
+    .dropdown-link {
+        color: var(--white) !important;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .dropdown-link:hover {
+        background: var(--primary-blue) !important;
+        color: var(--white) !important;
     }
 
     .hero-content h1 {
