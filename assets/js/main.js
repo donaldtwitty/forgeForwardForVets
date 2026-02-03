@@ -1,4 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            const hashIndex = href.indexOf('#');
+            if (hashIndex !== -1) {
+                const hash = href.substring(hashIndex + 1);
+                const target = document.getElementById(hash);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+
     // Load shared header
     loadHeader();
     

@@ -232,30 +232,98 @@ header h1 {
     background: var(--light-gray);
 }
 
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--dark-navy);
+    margin-bottom: 3rem;
+}
+
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-.feature-card {
+.feature-card-image {
+    position: relative;
+    height: 450px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.feature-card-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 145, 171, 0.95), rgba(0, 145, 171, 0.7), transparent);
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.feature-card-image:hover .card-overlay {
+    background: linear-gradient(to top, rgba(0, 145, 171, 0.98), rgba(0, 145, 171, 0.8), transparent);
+}
+
+.card-content {
+    width: 100%;
+}
+
+.card-content h3 {
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+}
+
+.card-content p {
+    color: var(--white);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.btn-card {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    line-height: 1.5;
+}
+
+.btn-card:hover {
     background: var(--white);
-    padding: 2.5rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid var(--primary-blue);
+    color: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
-.feature-card h3 {
-    color: var(--dark-navy);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.feature-card p {
-    color: var(--charcoal);
-    font-size: 1.1rem;
+.btn-card:focus {
+    outline: 3px solid var(--white);
+    outline-offset: 2px;
 }
 
 /* CTA Section */
@@ -296,12 +364,221 @@ header h1 {
     margin: 0 auto;
 }
 
-/* Content Sections */
+/* Programs Page Styles */
+.programs-intro {
+    padding: 3rem 0;
+    text-align: center;
+    background: var(--white);
+}
+
+.programs-intro p {
+    font-size: 1.2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: var(--charcoal);
+}
+
+.phase-section {
+    /*padding: 5rem 0;*/
+    scroll-margin-top: 100px;
+}
+
+.phase-section.alt-phase {
+    background: var(--light-gray);
+}
+
+.phase-content h2 {
+    color: var(--dark-navy);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.phase-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.phase-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.phase-overview {
+    font-size: 1.3rem;
+    color: var(--charcoal);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+
+.phase-details {
+    max-width: 800px;
+}
+
+.phase-details h3 {
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+}
+
+.phase-details ul {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.phase-details li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.phase-details .icon {
+    color: var(--primary-blue);
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.programs-cta {
+    background: var(--primary-blue);
+    color: var(--white);
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.programs-cta h2 {
+    color: var(--white);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.programs-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
 .programs-content,
 .about-content,
 .contact-content,
 .mentor-form-section {
     padding: 4rem 0;
+}
+
+/* Programs Page Styles */
+.programs-intro {
+    padding: 3rem 0;
+    text-align: center;
+    background: var(--white);
+}
+
+.programs-intro p {
+    font-size: 1.2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: var(--charcoal);
+}
+
+.phase-section {
+    scroll-margin-top: 100px;
+    background: var(--white);
+    margin-bottom: 4rem;
+}
+
+.phase-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.phase-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+.image-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 550px;
+    background: linear-gradient(to bottom, transparent, var(--white));
+    pointer-events: none;
+}
+
+.phase-content-wrapper {
+    max-width: 900px;
+    margin: -400px auto 0;
+    padding: 3rem 20px 5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.phase-content-wrapper h2 {
+    color: var(--dark-navy);
+    font-size: 2.8rem;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+.phase-content-wrapper h3 {
+    color: var(--primary-blue);
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.learning-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 3rem;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 4rem;
+}
+
+.learning-grid li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+}
+
+.learning-grid .icon {
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.outcomes-section {
+    /*padding-top: 3rem;*/
+    margin-top: 3rem;
+}
+
+.outcomes-section h3 {
+    color: var(--dark-navy);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.outcomes-section p {
+    font-size: 1.2rem;
+    color: var(--charcoal);
+    line-height: 1.8;
 }
 
 .program-card,
@@ -311,6 +588,46 @@ header h1 {
     border-radius: 12px;
     margin-bottom: 2rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-section.alt-bg {
+    background: var(--light-gray);
+}
+
+.about-section ul {
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 1.5rem;
+}
+
+.about-section li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.about-section .icon {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.team-link {
+    display: inline-block;
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.team-link:hover {
+    color: var(--dark-navy);
+    text-decoration: underline;
 }
 
 .program-list {
@@ -560,6 +877,31 @@ footer {
     color: var(--white);
 }
 
+.about-section ul {
+    list-style: disc;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-section li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.cta-section {
+    background: var(--light-gray);
+    border-left: 4px solid var(--primary-blue);
+    text-align: center;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
 /* Team Page Styles */
 .team-content {
     padding: 4rem 0;
@@ -617,6 +959,40 @@ footer {
 }
 .donation-content {
     padding: 4rem 0;
+}
+
+.donation-funding {
+    background: var(--primary-blue);
+    color: var(--white);
+    padding: 3rem;
+    border-radius: 12px;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.donation-funding h2 {
+    color: var(--white);
+    margin-bottom: 1.5rem;
+}
+
+.donation-funding ul {
+    list-style: none;
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: left;
+}
+
+.donation-funding li {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--light-blue);
+}
+
+.donation-funding p {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
 }
 
 .donation-impact {
@@ -695,6 +1071,174 @@ footer {
     margin-top: 1rem;
 }
 
+/* Chatbot Styles */
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1001;
+}
+
+#chatbot-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--dark-navy);
+    color: var(--white);
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chatbot-toggle:hover {
+    background: var(--primary-blue);
+    transform: scale(1.05);
+}
+
+#chatbot-toggle img {
+    width: 32px;
+    height: 32px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    width: 350px;
+    height: 500px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#chatbot-header {
+    background: var(--dark-navy);
+    color: var(--white);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chatbot-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#chatbot-header .header-icon {
+    width: 32px;
+    height: 32px;
+}
+
+#chatbot-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: auto;
+    min-height: auto;
+    line-height: 1;
+}
+
+#chatbot-close:hover {
+    transform: none;
+    box-shadow: none;
+    opacity: 0.8;
+}
+
+#chatbot-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: var(--light-gray);
+}
+
+.chatbot-message {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    max-width: 80%;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.bot-message {
+    background: var(--white);
+    color: var(--charcoal);
+    margin-right: auto;
+    border: 1px solid #e0e0e0;
+}
+
+.bot-message a {
+    color: var(--primary-blue);
+    text-decoration: underline;
+}
+
+.user-message {
+    background: var(--primary-blue);
+    color: var(--white);
+    margin-left: auto;
+}
+
+#chatbot-input-area {
+    display: flex;
+    padding: 1rem;
+    background: var(--white);
+    border-top: 1px solid #e0e0e0;
+}
+
+#chatbot-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--light-gray);
+    border-radius: 8px;
+    margin: 0;
+    margin-right: 0.5rem;
+    font-size: 0.95rem;
+}
+
+#chatbot-send {
+    background: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    width: auto;
+    min-height: auto;
+}
+
+#chatbot-send:hover {
+    background: var(--dark-navy);
+    transform: none;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    #chatbot-window {
+        width: calc(100vw - 40px);
+        max-width: 350px;
+    }
+}
+
 @media (max-width: 768px) {
     .main-nav {
         display: none;
@@ -723,6 +1267,32 @@ footer {
     .dropdown-link:hover {
         background: var(--primary-blue) !important;
         color: var(--white) !important;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .feature-card-image {
+        height: 400px;
+    }
+
+    .learning-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .phase-content-wrapper h2 {
+        font-size: 2.2rem;
+    }
+    
+    .phase-content-wrapper {
+        margin: -80px auto 0;
+        padding: 2rem 20px 4rem;
+    }
+    
+    .image-fade {
+        height: 200px;
     }
 
     .hero-content h1 {
