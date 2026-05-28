@@ -18,10 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Load shared header
     loadHeader();
-    
-    // Load shared footer
     loadFooter();
 
     function loadHeader() {
@@ -34,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error loading header:', error));
     }
-    
+
     function loadFooter() {
         fetch('assets/includes/footer.html')
             .then(response => response.text())
@@ -63,8 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mobileToggle.addEventListener('click', function () {
                 const isOpen = mainNav.classList.contains('mobile-open');
                 mainNav.classList.toggle('mobile-open');
-                
-                // Update aria-expanded and remove focus highlight when closing
                 mobileToggle.setAttribute('aria-expanded', !isOpen);
                 if (isOpen) {
                     mobileToggle.blur();
@@ -81,24 +76,20 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.appendChild(scrollTopBtn);
 
     window.addEventListener('scroll', function () {
-        if (window.scrollY > 300) {
-            scrollTopBtn.classList.add('visible');
-        } else {
-            scrollTopBtn.classList.remove('visible');
-        }
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
     });
 
     scrollTopBtn.addEventListener('click', function () {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Form handling
-    const forms = document.querySelectorAll('form');
+    // Form handling — submits to Formspree endpoint specified via data-formspree-id
+    const forms = document.querySelectorAll('form[data-formspree-id]');
     forms.forEach(form => {
-        form.addEventListener('submit', function (e) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.dataset.originalText = submitBtn.textContent;
+
+        form.addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
@@ -107,19 +98,43 @@ document.addEventListener('DOMContentLoaded', function () {
             inputs.forEach(input => {
                 if (!input.value.trim()) {
                     isValid = false;
-                    input.style.borderColor = 'var(--coral-accent)';
-                    input.style.animation = 'shake 0.5s ease-in-out';
+                    input.style.borderColor = 'var(--warning-orange)';
                 } else {
-                    input.style.borderColor = 'var(--ocean-teal)';
-                    input.style.animation = '';
+                    input.style.borderColor = 'var(--primary-blue)';
                 }
             });
 
-            if (isValid) {
-                showMessage('Thank you! Your message has been received.', 'success');
-                form.reset();
-            } else {
+            if (!isValid) {
                 showMessage('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending…';
+            }
+
+            try {
+                const response = await fetch(`https://formspree.io/f/${form.dataset.formspreeId}`, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    showMessage('Thank you! Your submission has been received.', 'success');
+                    form.reset();
+                    document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch {
+                showMessage('Something went wrong. Please try again or contact us directly.', 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = submitBtn.dataset.originalText;
+                }
             }
         });
     });
@@ -127,9 +142,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Donation amount selection
     const amountButtons = document.querySelectorAll('.amount-btn');
     const customAmountInput = document.querySelector('input[name="customAmount"]');
-    
+
     amountButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             amountButtons.forEach(b => b.classList.remove('selected'));
             this.classList.add('selected');
             if (customAmountInput) {
@@ -137,14 +152,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-    
+
     if (customAmountInput) {
-        customAmountInput.addEventListener('input', function() {
+        customAmountInput.addEventListener('input', function () {
             amountButtons.forEach(b => b.classList.remove('selected'));
         });
     }
 
-    // Message display function
     function showMessage(text, type) {
         const message = document.createElement('div');
         message.textContent = text;
@@ -158,41 +172,27 @@ document.addEventListener('DOMContentLoaded', function () {
             font-weight: 600;
             z-index: 10000;
             animation: slideIn 0.3s ease;
-            ${type === 'success' ? 'background: var(--success-green);' : 'background: var(--coral-accent);'}
+            ${type === 'success' ? 'background: var(--success-green);' : 'background: var(--warning-orange);'}
         `;
-
         document.body.appendChild(message);
-
         setTimeout(() => {
             message.style.animation = 'slideOut 0.3s ease forwards';
             setTimeout(() => message.remove(), 300);
         }, 3000);
     }
 
-    // Add CSS animations
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            to   { transform: translateX(0);    opacity: 1; }
         }
-        
         @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
+            from { transform: translateX(0);    opacity: 1; }
+            to   { transform: translateX(100%); opacity: 0; }
         }
-        
         @media (max-width: 768px) {
-            .main-nav {
-                display: none;
-            }
-            
+            .main-nav { display: none; }
             .main-nav.mobile-open {
                 display: flex !important;
                 flex-direction: column;
@@ -204,18 +204,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 box-shadow: 0 2px 10px rgba(0,0,0,0.3);
                 z-index: 1000;
             }
-            
             .main-nav.mobile-open .nav-link {
                 color: var(--white);
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
-            
             .main-nav.mobile-open .nav-link:hover,
             .main-nav.mobile-open .nav-link.active {
                 color: var(--white);
                 background: var(--primary-blue);
             }
-            
             .nav-dropdown .dropdown-menu {
                 position: static;
                 opacity: 1;

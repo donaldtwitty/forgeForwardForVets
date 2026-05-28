@@ -21,7 +21,7 @@ const faqData = [
         answer: 'Yes! Phase 3 includes one-on-one mentorship with experienced tech professionals. Mentors provide career guidance, interview prep, and ongoing support. <a href="mentor.html">Learn about becoming a mentor</a>.'
     },
     {
-        keywords: ['donate', 'donation', 'contribute', 'support', 'give'],
+        keywords: ['donate', 'donation', 'contribute', 'give'],
         answer: 'Thank you for your interest in supporting our mission! Your donations help provide free training to veterans. <a href="donate.html">Visit our donation page</a> to learn about the impact of your contribution.'
     },
     {
@@ -45,8 +45,20 @@ const faqData = [
         answer: 'While we don\'t offer formal degrees, we provide certificates of completion for each phase of our program. These certificates, along with your portfolio, help demonstrate your skills to employers.'
     },
     {
-        keywords: ['thank you', 'appreciate'],
-        answer: 'You are more than welcome. Thank you, for chatting with Forge Buddy.'
+        keywords: ['gi bill', 'va benefit', 'benefit', 'chapter 33', 'post 9/11'],
+        answer: 'Our program is provided free of charge, so you don\'t need to use GI Bill benefits to participate. We encourage veterans to explore all available VA education benefits at <a href="https://www.va.gov/education/" target="_blank" rel="noopener">va.gov/education</a>.'
+    },
+    {
+        keywords: ['disability', 'disabled', 'service-connected', 'accommodation', 'accessible'],
+        answer: 'Forge Forward welcomes veterans of all abilities. Our online, self-paced format is designed to be flexible and accommodating. If you have specific accessibility needs, please <a href="contact.html">contact us</a> and we\'ll work with you.'
+    },
+    {
+        keywords: ['spouse', 'spouses', 'family', 'dependent', 'military family'],
+        answer: 'Our current programs are focused on U.S. military veterans. We may expand to serve military spouses in the future — <a href="contact.html">contact us</a> to be added to our updates list.'
+    },
+    {
+        keywords: ['thank you', 'appreciate', 'thanks'],
+        answer: 'You\'re very welcome! Thank you for chatting with Forge Buddy. Is there anything else I can help you with?'
     }
 ];
 
@@ -63,7 +75,7 @@ class Chatbot {
         this.loadChatHistory();
         if (!this.hasGreeted) {
             this.addWelcomeMessage();
-            this.autoGreet();
+            this.triggerAttentionPulse();
         }
     }
 
@@ -101,31 +113,35 @@ class Chatbot {
 
     toggleChat() {
         this.isOpen = !this.isOpen;
-        const window = document.getElementById('chatbot-window');
+        const chatWindow = document.getElementById('chatbot-window');
         const chatIcon = document.getElementById('chat-icon');
         const closeIcon = document.getElementById('close-icon');
-        
+
         if (this.isOpen) {
-            window.classList.remove('hidden');
+            chatWindow.classList.remove('hidden');
             chatIcon.classList.add('hidden');
             closeIcon.classList.remove('hidden');
             document.getElementById('chatbot-input').focus();
         } else {
-            window.classList.add('hidden');
+            chatWindow.classList.add('hidden');
             chatIcon.classList.remove('hidden');
             closeIcon.classList.add('hidden');
         }
     }
 
     addWelcomeMessage() {
-        this.addMessage('bot', 'Hi! I\'m here to answer questions about Forge Forward. Ask me about our programs, eligibility, mentorship, or how to get started!');
+        this.addMessage('bot', 'Hi! I\'m Forge Buddy. Ask me about our programs, eligibility, mentorship, GI Bill, or how to get started!');
     }
 
     addMessage(sender, text) {
         const messagesContainer = document.getElementById('chatbot-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = `chatbot-message ${sender}-message`;
-        messageDiv.innerHTML = text;
+        if (sender === 'user') {
+            messageDiv.textContent = text;
+        } else {
+            messageDiv.innerHTML = text;
+        }
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
         this.saveChatHistory();
@@ -148,12 +164,12 @@ class Chatbot {
     sendMessage() {
         const input = document.getElementById('chatbot-input');
         const message = input.value.trim();
-        
+
         if (!message) return;
-        
+
         this.addMessage('user', message);
         input.value = '';
-        
+
         setTimeout(() => {
             const response = this.getResponse(message);
             this.addMessage('bot', response);
@@ -162,31 +178,29 @@ class Chatbot {
 
     getResponse(message) {
         const lowerMessage = message.toLowerCase();
-        
+
         for (const faq of faqData) {
             if (faq.keywords.some(keyword => lowerMessage.includes(keyword))) {
                 return faq.answer;
             }
         }
-        
+
         return 'I\'m not sure about that. You can <a href="contact.html">contact us directly</a> for more specific questions, or try asking about our programs, eligibility, mentorship, or donations.';
     }
 
-    autoGreet() {
+    triggerAttentionPulse() {
         setTimeout(() => {
-            if (!this.isOpen) {
-                this.toggleChat();
+            const toggle = document.getElementById('chatbot-toggle');
+            if (toggle && !this.isOpen) {
+                toggle.classList.add('chatbot-attention');
                 sessionStorage.setItem('chatbotGreeted', 'true');
                 this.hasGreeted = true;
-                setTimeout(() => {
-                    this.toggleChat();
-                }, 5000);
+                setTimeout(() => toggle.classList.remove('chatbot-attention'), 2000);
             }
-        }, 2000);
+        }, 3000);
     }
 }
 
-// Initialize chatbot when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => new Chatbot());
 } else {

@@ -379,72 +379,8 @@ header h1 {
     color: var(--charcoal);
 }
 
-.phase-section {
-    /*padding: 5rem 0;*/
-    scroll-margin-top: 100px;
-}
-
 .phase-section.alt-phase {
     background: var(--light-gray);
-}
-
-.phase-content h2 {
-    color: var(--dark-navy);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.phase-image {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.phase-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.phase-overview {
-    font-size: 1.3rem;
-    color: var(--charcoal);
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-}
-
-.phase-details {
-    max-width: 800px;
-}
-
-.phase-details h3 {
-    color: var(--primary-blue);
-    font-size: 1.5rem;
-    margin: 2rem 0 1rem;
-}
-
-.phase-details ul {
-    list-style: none;
-    margin-bottom: 2rem;
-}
-
-.phase-details li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
-.phase-details .icon {
-    color: var(--primary-blue);
-    font-weight: bold;
-    flex-shrink: 0;
-    margin-top: 0.2rem;
 }
 
 .programs-cta {
@@ -471,23 +407,8 @@ header h1 {
     padding: 4rem 0;
 }
 
-/* Programs Page Styles */
-.programs-intro {
-    padding: 3rem 0;
-    text-align: center;
-    background: var(--white);
-}
-
-.programs-intro p {
-    font-size: 1.2rem;
-    max-width: 900px;
-    margin: 0 auto;
-    line-height: 1.8;
-    color: var(--charcoal);
-}
-
 .phase-section {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 175px;
     background: var(--white);
     margin-bottom: 4rem;
 }
@@ -501,7 +422,9 @@ header h1 {
 
 .phase-image-container img {
     width: 100%;
-    height: auto;
+    max-height: 420px;
+    object-fit: cover;
+    object-position: center;
     display: block;
     border-radius: 16px;
 }
@@ -511,14 +434,14 @@ header h1 {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 550px;
+    height: 320px;
     background: linear-gradient(to bottom, transparent, var(--white));
     pointer-events: none;
 }
 
 .phase-content-wrapper {
     max-width: 900px;
-    margin: -400px auto 0;
+    margin: -300px auto 0;
     padding: 3rem 20px 5rem;
     position: relative;
     z-index: 10;
@@ -565,7 +488,6 @@ header h1 {
 }
 
 .outcomes-section {
-    /*padding-top: 3rem;*/
     margin-top: 3rem;
 }
 
@@ -579,6 +501,79 @@ header h1 {
     font-size: 1.2rem;
     color: var(--charcoal);
     line-height: 1.8;
+}
+
+/* Last item in an odd-count learning grid spans full width but stays left-aligned */
+.learning-grid li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc((100% - 3rem) / 2);
+}
+
+/* Adjust image-fade gradient for alt-phase (light gray) sections */
+.alt-phase .image-fade {
+    background: linear-gradient(to bottom, transparent, var(--light-gray));
+}
+
+/* Per-phase colored top accent on the content wrapper */
+#phase-1 .phase-content-wrapper { border-top: 4px solid var(--primary-blue); }
+#phase-2 .phase-content-wrapper { border-top: 4px solid var(--light-blue); }
+#phase-3 .phase-content-wrapper { border-top: 4px solid var(--dark-navy); }
+
+/* Phase quick-jump nav */
+.phase-nav {
+    background: var(--white);
+    border-bottom: 2px solid var(--light-gray);
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 120px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.phase-nav .container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.phase-nav-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    border-radius: 24px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark-navy);
+    border: 2px solid var(--light-gray);
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.phase-nav-link:hover,
+.phase-nav-link:focus {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+    background: rgba(0, 145, 171, 0.06);
+    outline: none;
+}
+
+.phase-nav-link.active {
+    background: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+}
+
+@media (max-width: 768px) {
+    .phase-nav {
+        top: 80px;
+    }
+
+    .phase-nav-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+    }
 }
 
 .program-card,
@@ -877,16 +872,6 @@ footer {
     color: var(--white);
 }
 
-.about-section ul {
-    list-style: disc;
-    margin-left: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.about-section li {
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
-}
 
 .cta-section {
     background: var(--light-gray);
@@ -939,6 +924,16 @@ footer {
     margin: 0 auto;
     color: var(--charcoal);
     font-weight: 500;
+}
+
+.member-photo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    margin: 0 auto;
 }
 
 .member-info h3 {
@@ -1103,6 +1098,63 @@ footer {
 #chatbot-toggle img {
     width: 32px;
     height: 32px;
+}
+
+@keyframes chatbot-pulse {
+    0%, 100% { transform: scale(1);    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+    50%       { transform: scale(1.18); box-shadow: 0 8px 24px rgba(0, 145, 171, 0.55); }
+}
+
+#chatbot-toggle.chatbot-attention {
+    animation: chatbot-pulse 0.6s ease-in-out 3;
+}
+
+/* PayPal donation section */
+.paypal-section {
+    text-align: center;
+    padding: 2.5rem;
+    background: var(--light-gray);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--primary-blue);
+}
+
+.paypal-section h2 {
+    color: var(--dark-navy);
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.paypal-section > p {
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+}
+
+.btn-paypal {
+    display: inline-block;
+    background: #0070ba;
+    color: var(--white);
+    text-decoration: none;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-height: 48px;
+    line-height: 1.4;
+}
+
+.btn-paypal:hover {
+    background: #005ea2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 94, 162, 0.3);
+}
+
+.or-divider {
+    color: var(--charcoal);
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    opacity: 0.75;
 }
 
 .hidden {
@@ -1287,12 +1339,12 @@ footer {
     }
     
     .phase-content-wrapper {
-        margin: -80px auto 0;
+        margin: -100px auto 0;
         padding: 2rem 20px 4rem;
     }
-    
+
     .image-fade {
-        height: 200px;
+        height: 120px;
     }
 
     .hero-content h1 {

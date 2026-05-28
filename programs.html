@@ -4,6 +4,13 @@
     <meta charset="utf-8">
     <title>Programs - Forge Forward Digital Skills for Veterans</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore Forge Forward's three-phase program: Foundation Skills, Career Readiness, and Mentorship & Placement — a free digital skills training path for U.S. military veterans.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Forge Forward Digital Skills for Veterans">
+    <meta property="og:title" content="Programs — Forge Forward Digital Skills for Veterans">
+    <meta property="og:description" content="A free, structured three-phase training program preparing veterans for high-demand technology careers.">
+    <meta property="og:url" content="https://forgeforwardforvets.org/programs.html">
+    <meta property="og:image" content="https://forgeforwardforvets.org/assets/img/forgeForwardLogo.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
@@ -24,6 +31,14 @@
                 high-demand digital careers.</p>
         </div>
     </section>
+
+    <nav class="phase-nav" aria-label="Jump to program phase">
+        <div class="container">
+            <a href="#phase-1" class="phase-nav-link">Phase 1: Foundation Skills</a>
+            <a href="#phase-2" class="phase-nav-link">Phase 2: Career Readiness</a>
+            <a href="#phase-3" class="phase-nav-link">Phase 3: Mentorship &amp; Placement</a>
+        </div>
+    </nav>
 
     <section id="phase-1" class="phase-section">
         <div class="phase-image-container">
@@ -50,7 +65,7 @@
         </div>
     </section>
 
-    <section id="phase-2" class="phase-section">
+    <section id="phase-2" class="phase-section alt-phase">
         <div class="phase-image-container">
             <img src="assets/img/img05.png" alt="Phase 2: Career Readiness">
             <div class="image-fade"></div>
@@ -106,12 +121,34 @@
         <div class="container">
             <h2>Ready to Start Your Journey?</h2>
             <p>Join our program and take the first step toward a rewarding technology career.</p>
-            <a href="contact.html" class="btn btn-primary">Get Started Today</a>
+            <a href="contact.html" class="btn btn-secondary">Get Started Today</a>
         </div>
     </section>
 </main>
 
 <script src="assets/js/main.js"></script>
 <script src="assets/js/chatbot.js"></script>
+<script>
+    (function () {
+        const sections = document.querySelectorAll('.phase-section[id]');
+        const navLinks = document.querySelectorAll('.phase-nav-link');
+        const OFFSET = 185; // fixed header + sticky phase nav combined height
+
+        function updateActiveLink() {
+            let currentId = sections[0] ? sections[0].id : null;
+            sections.forEach(function (section) {
+                if (section.getBoundingClientRect().top <= OFFSET + 10) {
+                    currentId = section.id;
+                }
+            });
+            navLinks.forEach(function (link) {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink, { passive: true });
+        updateActiveLink();
+    })();
+</script>
 </body>
 </html>
